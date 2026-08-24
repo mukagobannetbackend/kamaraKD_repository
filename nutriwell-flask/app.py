@@ -1,10 +1,29 @@
 """NutriWell Flask application."""
+
+
 from __future__ import annotations
+
 import os
 from flask import Flask, abort, flash, redirect, render_template, request, url_for
+from flask_mail import Mail, Message
+from dotenv import load_dotenv
+
+load_dotenv()
 
 app = Flask(__name__)
-app.config["SECRET_KEY"] = os.environ.get("SECRET_KEY", "replace-this-before-production")
+
+app.config["SECRET_KEY"] = os.environ.get(
+    "SECRET_KEY",
+    "replace-this-before-production"
+)
+
+app.config["MAIL_SERVER"] = "smtp.gmail.com"
+app.config["MAIL_PORT"] = 587
+app.config["MAIL_USE_TLS"] = True
+app.config["MAIL_USERNAME"] = os.getenv("MAIL_USERNAME")
+app.config["MAIL_PASSWORD"] = os.getenv("MAIL_PASSWORD")
+
+mail = Mail(app)
 
 PAGES = {
     "about": {"title":"About NutriWell","eyebrow":"OUR APPROACH","headline":"Nutrition guidance made for real life.","intro":"NutriWell turns evidence-informed nutrition into practical routines you can return to on busy weekdays, shared family meals and every season in between.","hero_image":"nutriwell-family-table.jpg","section_heading":"A more sustainable way to feel well","section_body":"We look beyond one-size-fits-all meal rules. Each conversation begins with your habits, access, culture and goals, then moves toward small changes you can repeat with confidence.","cards":[{"title":"Listen first","body":"Your lifestyle and food preferences lead the plan — not a rigid template.","tag":"01"},{"title":"Use clear science","body":"We translate credible nutrition principles into choices that make sense at your table.","tag":"02"},{"title":"Build steady momentum","body":"Simple check-ins and useful tools help you notice progress without perfectionism.","tag":"03"}]},
@@ -40,21 +59,74 @@ def article_detail(slug):
  article=ARTICLES.get(slug)
  if not article: abort(404)
  return render_template("article.html",page="blog",title=f"{article['title']} | KD nutrition And wellness centre",article=article)
-@app.route("/contact",methods=["GET","POST"])
-@app.route("/consultation",methods=["GET","POST"])
+@app.route("/contact", methods=["GET", "POST"])
+@app.route("/consultation", methods=["GET", "POST"])
 def contact():
- if request.method=="POST":
-  name=request.form.get("name","there").strip() or "there"
-  flash(f"Thanks, {name}. Your consultation request has been noted. We will be in touch shortly.","success")
-  return redirect(url_for("contact"))
- return render_template("contact.html",page="contact",title="Book a Consultation | KD nutrition And wellness centre")
+    if request.method == "POST":
+
+        name = request.form.get("name", "").strip()
+        email = request.form.get("email", "").strip()
+        interest = request.form.get("interest", "").strip()
+        message = request.form.get("message", "").strip()
+
+        try:
+            msg = Message(
+                subject=f"New Consultation Request: {interest}",
+                sender=os.getenv("MAIL_USERNAME"),
+                recipients=[os.getenv("MAIL_USERNAME")],
+                reply_to=email
+            )
+
+            msg.body = f"""
+New consultation request from your KD Nutrition and Wellness Centre website.
+
+Name: {name}
+Email: {email}
+
+Support needed:
+{interest}
+
+Client's message:
+{message}
+"""
+
+            mail.send(msg)
+
+            flash(
+                f"Thank you, {name}. Your consultation request has been sent successfully. We will be in touch shortly.",
+                "success"
+            )
+
+        except Exception as e:
+            print("EMAIL ERROR:", e)
+
+            flash(
+                "Sorry, your request could not be sent. Please try again later.",
+                "error"
+            )
+
+        return redirect(url_for("contact"))
+
+    return render_template(
+        "contact.html",
+        page="contact",
+        title="Book a Consultation | KD Nutrition And Wellness Centre"
+    )
+##--@app.route("/contact",methods=["GET","POST"])
+##@app.route("/consultation",methods=["GET","POST"])
+##def contact():
+ ##if request.method=="POST":
+  ##name=request.form.get("name","there").strip() or "there"
+  ##flash(f"Thanks, {name}. Your consultation request has been noted. We will be in touch shortly.","success")
+  ##return redirect(url_for("contact"))
+ ##return render_template("contact.html",page="contact",title="Book a Consultation | KD nutrition And wellness centre")
 @app.get("/login")
 def login(): return render_template("portal.html",page="portal",title="Client Portal | KD nutrition And wellness centre")
 @app.get("/<page>")
 def landing_page(page):
  data=PAGES.get(page)
  if not data: abort(404)
- return render_template("landing.html",page=page,title=f"{data['title']} | KD nutrition",data=data)
+ return render_template("landing.html",page=page,title=f"{data['title']} | KD nutrition Ad wellness centre",data=data)
 @app.errorhandler(404)
 def not_found(_error): return render_template("404.html",page="not-found",title="Page not found | KD nutrition And wellness centre"),404
 if __name__=="__main__": app.run(host="0.0.0.0",port=int(os.environ.get("PORT",5000)),debug=True)

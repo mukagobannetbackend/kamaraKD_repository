@@ -1,2 +1,17 @@
 {# Editorial Wellness Studio program detail — focused hierarchy, natural imagery, and practical green actions. #}
-{% extends "base.html" %}{% block content %}<section class="detail-hero"><div class="detail-shell"><div class="detail-copy reveal"><a class="back-link" href="{{ url_for('programs') }}">← All programs</a><p class="eyebrow">{{ program.duration|upper }} PROGRAM</p><h1>{{ program.title }}</h1><p>{{ program.summary }}</p><div class="detail-price">{{ program.price }}</div><a class="button button-primary" href="{{ url_for('contact') }}">Enquire About This Program</a></div><div class="detail-image reveal delay-1"><img src="{{ url_for('static', filename='images/' ~ program.image) }}" alt="Nourishing food for {{ program.title }}"></div></div></section><section class="section detail-content"><div class="detail-includes reveal"><p class="eyebrow">PROGRAM HIGHLIGHTS</p><h2>What you will work on</h2><ul class="check-list">{% for highlight in program.highlights %}<li>{{ highlight }}</li>{% endfor %}</ul><p>At the start, we will clarify your current routine and choose the simplest changes that make a meaningful difference. Each step is designed to be useful long after the program ends.</p></div><aside class="detail-aside reveal delay-1"><img src="{{ url_for('static', filename='images/nutriwell-hero-nutritionist.jpg') }}" alt="NutriWell dietitian in a welcoming kitchen"><h3>Need help choosing?</h3><p>Book a short conversation and we will point you to the service or program that fits your goals.</p><a href="{{ url_for('contact') }}">Book a conversation →</a></aside></section>{% endblock %}
+{% extends "base.html" %}{% block content %}<section class="detail-hero"><div class="detail-shell">
+    <div class="detail-copy reveal"><a class="back-link" href="{{ url_for('programs') }}">← All programs</a><p class="eyebrow">{{ program.duration|upper }} PROGRAM</p><h1>{{ program.title }}</h1><p>{{ program.summary }}</p><div class="detail-price">{{ program.price }}</div>
+    <a class="button button-primary" href="{{ url_for('contact') }}">Enquire About This Program</a></div>
+    <div class="detail-image reveal delay-1"><img src="{{ url_for('static', filename='images/' ~ program.image) }}" alt="Nourishing food for {{ program.title }}"></div>
+</div></section><section class="section detail-content">
+    <div class="detail-includes reveal">
+        <p class="eyebrow">PROGRAM HIGHLIGHTS</p>
+        <h2>What you will work on</h2>
+        <ul class="check-list">{% for highlight in program.highlights %}
+            <li>{{ highlight }}</li>{% endfor %}</ul>
+            <p>At the start, we will clarify your current routine and choose the simplest changes that make a meaningful difference. Each step is designed to be useful long after the program ends.</p>
+        </div><aside class="detail-aside reveal delay-1">
+            <img src="{{ url_for('static', filename='images/nutriwell-hero-nutritionist.jpg') }}" alt="NutriWell dietitian in a welcoming kitchen">
+            <h3>Need help choosing?</h3><p>Book a short conversation and we will point you to the service or program that fits your goals.</p>
+            <a href="{{ url_for('contact') }}">Book a conversation →</a>
+        </aside></section>{% endblock %}
