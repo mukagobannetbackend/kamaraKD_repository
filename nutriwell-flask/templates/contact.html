@@ -1,2 +1,28 @@
 {# Editorial Wellness Studio contact — reassuring form flow with concrete steps and food imagery. #}
-{% extends "base.html" %}{% block content %}<section class="contact-hero"><div class="contact-shell"><div class="contact-copy reveal"><p class="eyebrow">LET’S TALK FOOD</p><h1>Bring your goals. We’ll find a practical place to begin.</h1><p>Tell us a little about what you are working toward and we will help you choose a supportive next step.</p><div class="contact-details"><p><strong>Email</strong><br><a href="mailto:hello@nutriwell.example">hello@nutriwell.example</a></p><p><strong>Consultations</strong><br>Online &amp; in-person appointments</p><p><strong>Response time</strong><br>Within two working days</p></div></div><form class="consultation-form reveal delay-1" method="post" action="{{ url_for('contact') }}"><h2>Request a consultation</h2><label for="name">Your name</label><input id="name" name="name" autocomplete="name" required><label for="email">Email address</label><input id="email" name="email" type="email" autocomplete="email" required><label for="interest">What would you like support with?</label><select id="interest" name="interest" required><option value="">Choose an option</option><option>Personal nutrition guidance</option><option>Meal planning</option><option>Family nutrition</option><option>Choosing a program</option></select><label for="message">A little more about your goals</label><textarea id="message" name="message" rows="4" placeholder="For example: I want easier weekday meals..."></textarea><button class="button button-primary" type="submit">Send Request</button><p class="form-note">This demo form confirms your request on-screen. Connect it to your preferred email or CRM before launch.</p></form></div></section><section class="section contact-support"><div class="story-image reveal"><img src="{{ url_for('static', filename='images/nutriwell-program-bowl.jpg') }}" alt="Fresh ingredients arranged in a balanced breakfast bowl"></div><div class="story-copy reveal delay-1"><p class="eyebrow">WHAT HAPPENS NEXT</p><h2>A short conversation, then a clear plan.</h2><ol class="number-list"><li><span>1</span><p><strong>Tell us what matters</strong><br>Share the routines, concerns or goals that brought you here.</p></li><li><span>2</span><p><strong>Choose a useful starting point</strong><br>We will recommend a service or program that fits your season.</p></li><li><span>3</span><p><strong>Start with confidence</strong><br>Receive a practical direction for your next food choice.</p></li></ol></div></section>{% endblock %}
+
+{% extends "base.html" %}{% block content %}<section class="contact-hero"><div class="contact-shell">
+    <div class="contact-copy reveal"><p class="eyebrow">LET’S TALK FOOD</p>
+        <h1>Bring your goals. We’ll find a practical place to begin.</h1>
+        <p>Tell us a little about what you are working toward and we will help you choose a supportive next step.</p>
+        <div class="contact-details"><p><strong>Email</strong><br><a href="mailto:hello@nutriwell.example">hello@nutriwell.example</a></p><p>
+            <strong>Consultations</strong><br>Online &amp; in-person appointments</p><p><strong>Response time</strong>
+                <br>Within two working days</p></div></div>
+                <form class="consultation-form reveal delay-1" method="post" action="{{ url_for('contact') }}">
+                    <h2>Request a consultation</h2><label for="name">Your name</label><input id="name" name="name" autocomplete="name" required>
+                    <label for="email">Email address</label><input id="email" name="email" type="email" autocomplete="email" required>
+                    <label for="interest">What would you like support with?</label><select id="interest" name="interest" required>
+                        <option value="">Choose an option</option><option>Personal nutrition guidance</option><option>Meal planning</option>
+                        <option>Family nutrition</option><option>Choosing a program</option></select>
+                        <label for="message">A little more about your goals</label>
+                        <textarea id="message" name="message" rows="4" placeholder="For example: I want easier weekday meals...">
+
+                        </textarea><button class="button button-primary" type="submit">Send Request</button>
+                        <p class="form-note">This demo form confirms your request on-screen. Connect it to your preferred email or CRM before launch.</p></form></div></section><section class="section contact-support">
+                            <div class="story-image reveal"><img src="{{ url_for('static', filename='images/nutriwell-program-bowl.jpg') }}" alt="Fresh ingredients arranged in a balanced breakfast bowl">
+                            </div><div class="story-copy reveal delay-1"><p class="eyebrow">WHAT HAPPENS NEXT</p><h2>A short conversation, then a clear plan.</h2>
+                                <ol class="number-list"><li><span>1</span><p><strong>Tell us what matters</strong>
+                                    <br>Share the routines, concerns or goals that brought you here.</p></li><li>
+                                        <span>2</span><p><strong>Choose a useful starting point</strong>
+                                            <br>We will recommend a service or program that fits your season.</p></li><li><span>3</span>
+                                                <p><strong>Start with confidence</strong><br>Receive a practical direction for your next food choice.</p>
+                                            </li></ol></div></section>{% endblock %}
