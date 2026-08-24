@@ -27,19 +27,19 @@ ARTICLES = {
 }
 
 @app.get("/")
-def home(): return render_template("home.html", page="home", title="NutriWell | Nutrition for a Better You", programs=PROGRAMS)
+def home(): return render_template("home.html", page="home", title="KD Nutrition AND wellness Centre | Nutrition for a Better You", programs=PROGRAMS)
 @app.get("/programs")
-def programs(): return render_template("programs.html", page="programs", title="Nutrition Programs | NutriWell", programs=PROGRAMS)
+def programs(): return render_template("programs.html", page="programs", title="Nutrition Programs | KD nutrition And wellness centre", programs=PROGRAMS)
 @app.get("/programs/<slug>")
 def program_detail(slug):
  program=PROGRAMS.get(slug)
  if not program: abort(404)
- return render_template("program_detail.html",page="programs",title=f"{program['title']} | NutriWell",program=program)
+ return render_template("program_detail.html",page="programs",title=f"{program['title']} | KD nutrition And wellness centre",program=program)
 @app.get("/blog/<slug>")
 def article_detail(slug):
  article=ARTICLES.get(slug)
  if not article: abort(404)
- return render_template("article.html",page="blog",title=f"{article['title']} | NutriWell",article=article)
+ return render_template("article.html",page="blog",title=f"{article['title']} | KD nutrition And wellness centre",article=article)
 @app.route("/contact",methods=["GET","POST"])
 @app.route("/consultation",methods=["GET","POST"])
 def contact():
@@ -47,14 +47,14 @@ def contact():
   name=request.form.get("name","there").strip() or "there"
   flash(f"Thanks, {name}. Your consultation request has been noted. We will be in touch shortly.","success")
   return redirect(url_for("contact"))
- return render_template("contact.html",page="contact",title="Book a Consultation | NutriWell")
+ return render_template("contact.html",page="contact",title="Book a Consultation | KD nutrition And wellness centre")
 @app.get("/login")
-def login(): return render_template("portal.html",page="portal",title="Client Portal | NutriWell")
+def login(): return render_template("portal.html",page="portal",title="Client Portal | KD nutrition And wellness centre")
 @app.get("/<page>")
 def landing_page(page):
  data=PAGES.get(page)
  if not data: abort(404)
- return render_template("landing.html",page=page,title=f"{data['title']} | NutriWell",data=data)
+ return render_template("landing.html",page=page,title=f"{data['title']} | KD nutrition",data=data)
 @app.errorhandler(404)
-def not_found(_error): return render_template("404.html",page="not-found",title="Page not found | NutriWell"),404
+def not_found(_error): return render_template("404.html",page="not-found",title="Page not found | KD nutrition And wellness centre"),404
 if __name__=="__main__": app.run(host="0.0.0.0",port=int(os.environ.get("PORT",5000)),debug=True)
