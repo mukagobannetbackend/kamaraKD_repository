@@ -1,9 +1,14 @@
 {# Editorial Wellness Studio — botanical green, cream, and story-led food imagery. #}
 <!doctype html><html lang="en" data-theme="light"><head><meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="NutriWell provides practical, personalised nutrition guidance for better everyday routines."><meta name="theme-color" content="#146c2e"><title>{{ title }}</title><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="NutriWell provides practical, personalised nutrition guidance for better everyday routines.">
+    <meta name="theme-color" content="#146c2e"><title>{{ title }}</title><link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,
+    700&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-    <script>(function(){var t=localStorage.getItem('nutriwell-theme');if(t)document.documentElement.dataset.theme=t}())</script></head><body class="page-{{ page }}"><a class="skip-link" href="#content">Skip to main content</a>
+    <script>(function(){var t=localStorage.getItem('nutriwell-theme');if(t)document.documentElement.dataset.theme=t}())</script>
+</head><body class="page-{{ page }}"><a class="skip-link" href="#content">Skip to main content</a>
         <header class="site-header" data-header><div class="header-shell">
             <a class="brand" href="{{ url_for('home') }}" aria-label="NutriWell home">
                 <img src="{{ url_for('static', filename='images/nutriwell-leaf-mark.png') }}" alt="" width="48" height="48">
@@ -11,23 +16,43 @@
                     <small>Nutrition for a Better You</small>
                 </span></a><nav class="desktop-nav" aria-label="Primary navigation">
                     <a class="{% if page == 'home' %}active{% endif %}" href="{{ url_for('home') }}">Home</a>
-                    <a class="{% if page == 'about' %}active{% endif %}" href="{{ url_for('landing_page', page='about') }}">About</a><a class="{% if page == 'services' %}active{% endif %}" href="{{ url_for('landing_page', page='services') }}">Services</a><a class="{% if page == 'programs' %}active{% endif %}" href="{{ url_for('programs') }}">Programs</a>
-                    <a class="{% if page == 'recipes' %}active{% endif %}" href="{{ url_for('landing_page', page='recipes') }}">Recipes</a><a class="{% if page == 'resources' %}active{% endif %}" href="{{ url_for('landing_page', page='resources') }}">Resources</a><a class="{% if page == 'blog' %}active{% endif %}" href="{{ url_for('landing_page', page='blog') }}">Blog</a>
+                    <a class="{% if page == 'about' %}active{% endif %}" href="{{ url_for('landing_page', page='about') }}">About</a>
+                    <a class="{% if page == 'services' %}active{% endif %}" href="{{ url_for('landing_page', page='services') }}">Services</a>
+                    <a class="{% if page == 'programs' %}active{% endif %}" href="{{ url_for('programs') }}">Programs</a>
+                    <a class="{% if page == 'recipes' %}active{% endif %}" href="{{ url_for('landing_page', page='recipes') }}">Recipes</a>
+                    <a class="{% if page == 'resources' %}active{% endif %}" href="{{ url_for('landing_page', page='resources') }}">Resources</a>
+                    <a class="{% if page == 'blog' %}active{% endif %}" href="{{ url_for('landing_page', page='blog') }}">Blog</a>
                     <a class="{% if page == 'contact' %}active{% endif %}" href="{{ url_for('contact') }}">Contact</a></nav>
                     <div class="header-actions"><button class="theme-toggle" type="button" data-theme-toggle aria-label="Switch to dark mode" aria-pressed="false"><span class="toggle-sun" aria-hidden="true">☼</span><span class="toggle-moon" aria-hidden="true">☾</span>
-                    </button><a class="button button-primary header-cta" href="{{ url_for('contact') }}">Book Consultation</a><a class="login-link" href="{{ url_for('login') }}"><span aria-hidden="true">♙</span> Login</a>
-                    <button class="menu-toggle" type="button" data-menu-toggle aria-label="Open menu" aria-expanded="false"><span></span><span></span><span></span></button></div>
+                    </button><a class="button button-primary header-cta" href="{{ url_for('contact') }}">Book Consultation</a>
+                    <a class="login-link" href="{{ url_for('login') }}"><span aria-hidden="true">♙</span> Login</a>
+                    <button class="menu-toggle" type="button" data-menu-toggle aria-label="Open menu" aria-expanded="false">
+                        <span></span><span></span><span></span></button></div>
                 </div><nav class="mobile-nav" data-mobile-nav aria-label="Mobile navigation" hidden>
                     <a href="{{ url_for('home') }}">Home</a><a href="{{ url_for('landing_page', page='about') }}">About</a>
                     <a href="{{ url_for('landing_page', page='services') }}">Services</a><a href="{{ url_for('programs') }}">Programs</a><a href="{{ url_for('landing_page', page='recipes') }}">Recipes</a>
-                    <a href="{{ url_for('landing_page', page='resources') }}">Resources</a><a href="{{ url_for('landing_page', page='blog') }}">Blog</a><a href="{{ url_for('contact') }}">Contact</a></nav>
-                </header>{% with messages = get_flashed_messages(with_categories=true) %}{% if messages %}<div class="flash-stack" aria-live="polite">{% for category, message in messages %}
-                        <div class="flash flash-{{ category }}">{{ message }}</div>{% endfor %}</div>{% endif %}{% endwith %}<main id="content">{% block content %}{% endblock %}</main><footer class="site-footer">
+                    <a href="{{ url_for('landing_page', page='resources') }}">Resources</a>
+                    <a href="{{ url_for('landing_page', page='blog') }}">Blog</a><a href="{{ url_for('contact') }}">Contact</a></nav>
+                </header>{% with messages = get_flashed_messages(with_categories=true) %}{% if messages %}
+                <div class="flash-stack" aria-live="polite">{% for category, message in messages %}
+                        <div class="flash flash-{{ category }}">{{ message }}</div>{% endfor %}</div>{% endif %}{% endwith %}
+                        <main id="content">{% block content %}{% endblock %}</main><footer class="site-footer">
                             <div class="footer-shell"><div class="footer-brand">
-                        <a class="brand brand-footer" href="{{ url_for('home') }}"><img src="{{ url_for('static', filename='images/nutriwell-leaf-mark.png') }}" alt="" width="48" height="48"><span class="brand-copy"><strong>NutriWell</strong>
-                            <small>Nutrition for a Better You</small></span></a><p>Thoughtful guidance for healthier routines, one useful meal at a time.</p></div><div><h2>Explore</h2>
+                        <a class="brand brand-footer" href="{{ url_for('home') }}">
+                            <img src="{{ url_for('static', filename='images/nutriwell-leaf-mark.png') }}" alt="" width="48" height="48"><span class="brand-copy"><strong>KD Nutrition centre</strong>
+                            <small>Nutrition for a Better You</small></span></a>
+                            <p>Thoughtful guidance for healthier routines, one useful meal at a time.</p></div><div><h2>Explore</h2>
                                 <a href="{{ url_for('landing_page', page='about') }}">Our approach</a>
-                                <a href="{{ url_for('landing_page', page='services') }}">Nutrition services</a><a href="{{ url_for('programs') }}">Programs</a></div><div><h2>Learn</h2>
-                                    <a href="{{ url_for('landing_page', page='recipes') }}">Healthy recipes</a><a href="{{ url_for('landing_page', page='resources') }}">Free resources</a><a href="{{ url_for('landing_page', page='blog') }}">Journal</a></div>
-                                    <div><h2>Start here</h2><a href="{{ url_for('contact') }}">Book a consultation</a><a href="{{ url_for('login') }}">Client portal</a><a href="mailto:hello@nutriwell.example">kdnutritionandwellness@gmail.com</a></div></div>
-                                    <div class="footer-bottom"><span> KD nutrition and wellness centre</span><span>Buit for your own health.</span></div></footer><script src="{{ url_for('static', filename='js/main.js') }}" defer></script></body></html>
+                                <a href="{{ url_for('landing_page', page='services') }}">Nutrition services</a>
+                                <a href="{{ url_for('programs') }}">Programs</a></div><div><h2>Learn</h2>
+                                    <a href="{{ url_for('landing_page', page='recipes') }}">Healthy recipes</a>
+                                    <a href="{{ url_for('landing_page', page='resources') }}">Free resources</a>
+                                    <a href="{{ url_for('landing_page', page='blog') }}">Journal</a></div>
+                                    <div><h2>Start here</h2><a href="{{ url_for('contact') }}">Book a consultation</a>
+                                        <a href="{{ url_for('login') }}">Client portal</a>
+                                        <a href="mailto:hello@nutriwell.example">kdnutritionandwellness@gmail.com</a></div></div>
+                                    <div class="footer-bottom">
+                                        <span> KD nutrition and wellness centre</span><span>Buit for your own health.</span>
+                                    </div></footer><script src="{{ url_for('static', filename='js/main.js') }}" defer>
+
+                                    </script></body></html>
