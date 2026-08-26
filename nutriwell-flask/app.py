@@ -39,10 +39,10 @@ PROGRAMS = {
  "physical-exercise":{
   "title":"Physical Exercise",
   "duration":"Six weeks",
-  "price":"UGX 900,000",
+  "price":"UGX 100,000",
   "summary":"A personalised wellness programme designed to help you build strength, improve fitness, boost energy and support a healthier lifestyle through safe and practical physical activity.",
   "highlights":["Personalised exercise guidance","Strength and fitness improvement","Healthy lifestyle support"],
-  "image":"nutriwell-physical-exercise.jpg"
+  "image":"jimm1.jpg"
 },
 }
 
