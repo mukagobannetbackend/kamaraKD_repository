@@ -34,7 +34,7 @@ PAGES = {
 }
 
 PROGRAMS = {
- "seven-day-reset":{"title":"7-Day Healthy Eating Reset","duration":"One week","price":"UGX 36,000","summary":"A gentle week of meal structure, simple shopping prompts and realistic recipes designed to help you reset without starting over.","highlights":["Daily meal guidance","Fresh, flexible recipes","Smart shopping prompts"],"image":"nutriwell-program-bowl.jpg"},
+ "seven-day-reset":{"title":"7-Day Healthy Eating Reset","duration":"One week","price":"UGX 36,000","summary":"A gentle week of meal structure, simple shopping prompts and realistic recipes designed to help you reset without starting over.","highlights":["Daily meal guidance","Fresh, flexible recipes","Smart shopping prompts"],"image":"kd9.1.jpg"},
  "thirty-day-lifestyle":{"title":"30-Day Healthy Lifestyle Program","duration":"Four weeks","price":"UGX 70,000","summary":"Four practical weeks of personalised meal planning, check-ins and supportive tools for building a steadier food routine.","highlights":["Personalised meal plan","Weekly check-ins","Progress tracker","Exclusive resources"],"image":"nutriwell-program-bowl.jpg"},
  "physical-exercise":{
   "title":"Physical Exercise",
