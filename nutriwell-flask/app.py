@@ -34,9 +34,16 @@ PAGES = {
 }
 
 PROGRAMS = {
- "seven-day-reset":{"title":"7-Day Healthy Eating Reset","duration":"One week","price":"UGX 30,000","summary":"A gentle week of meal structure, simple shopping prompts and realistic recipes designed to help you reset without starting over.","highlights":["Daily meal guidance","Fresh, flexible recipes","Smart shopping prompts"],"image":"nutriwell-program-bowl.jpg"},
- "thirty-day-lifestyle":{"title":"30-Day Healthy Lifestyle Program","duration":"Four weeks","price":"UGX 80,000","summary":"Four practical weeks of personalised meal planning, check-ins and supportive tools for building a steadier food routine.","highlights":["Personalised meal plan","Weekly check-ins","Progress tracker","Exclusive resources"],"image":"nutriwell-program-bowl.jpg"},
- "family-nutrition":{"title":"Healthy Family Nutrition Program","duration":"Six weeks","price":"UGX 100,000","summary":"A family-first programme that makes shared meals more balanced, enjoyable and practical for different appetites and schedules.","highlights":["Family meal ideas","Budget-friendly planning","Healthy recipe collection"],"image":"nutriwell-family-table.jpg"},
+ "seven-day-reset":{"title":"7-Day Healthy Eating Reset","duration":"One week","price":"UGX 36,000","summary":"A gentle week of meal structure, simple shopping prompts and realistic recipes designed to help you reset without starting over.","highlights":["Daily meal guidance","Fresh, flexible recipes","Smart shopping prompts"],"image":"nutriwell-program-bowl.jpg"},
+ "thirty-day-lifestyle":{"title":"30-Day Healthy Lifestyle Program","duration":"Four weeks","price":"UGX 70,000","summary":"Four practical weeks of personalised meal planning, check-ins and supportive tools for building a steadier food routine.","highlights":["Personalised meal plan","Weekly check-ins","Progress tracker","Exclusive resources"],"image":"nutriwell-program-bowl.jpg"},
+ "physical-exercise":{
+  "title":"Physical Exercise",
+  "duration":"Six weeks",
+  "price":"UGX 900,000",
+  "summary":"A personalised wellness programme designed to help you build strength, improve fitness, boost energy and support a healthier lifestyle through safe and practical physical activity.",
+  "highlights":["Personalised exercise guidance","Strength and fitness improvement","Healthy lifestyle support"],
+  "image":"nutriwell-physical-exercise.jpg"
+},
 }
 
 ARTICLES = {
