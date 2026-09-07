@@ -1,11 +1,13 @@
 """NutriWell Flask application."""
 
-
+## has started here 
 from __future__ import annotations
 
 import os
+
 from flask import Flask, abort, flash, redirect, render_template, request, url_for
 from flask_mail import Mail, Message
+from flask_sqlalchemy import SQLAlchemy
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -17,13 +19,55 @@ app.config["SECRET_KEY"] = os.environ.get(
     "replace-this-before-production"
 )
 
-app.config["MAIL_SERVER"] = "smtp.gmail.com"
-app.config["MAIL_PORT"] = 587
-app.config["MAIL_USE_TLS"] = True
-app.config["MAIL_USERNAME"] = os.getenv("MAIL_USERNAME")
-app.config["MAIL_PASSWORD"] = os.getenv("MAIL_PASSWORD")
 
-mail = Mail(app)
+# DATABASE
+database_url = os.environ.get("DATABASE_URL")
+
+if database_url and database_url.startswith("postgres://"):
+    database_url = database_url.replace(
+        "postgres://",
+        "postgresql+psycopg2://",
+        1
+    )
+elif database_url and database_url.startswith("postgresql://"):
+    database_url = database_url.replace(
+        "postgresql://",
+        "postgresql+psycopg2://",
+        1
+    )
+
+app.config["SQLALCHEMY_DATABASE_URI"] = database_url
+app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
+
+db = SQLAlchemy(app)
+class Consultation(db.Model):
+    __tablename__ = "consultations"
+
+    id = db.Column(db.Integer, primary_key=True)
+
+    name = db.Column(
+        db.String(100),
+        nullable=False
+    )
+
+    email = db.Column(
+        db.String(150),
+        nullable=False
+    )
+
+    interest = db.Column(
+        db.String(200)
+    )
+
+    message = db.Column(
+        db.Text
+    )
+
+    created_at = db.Column(
+        db.DateTime,
+        server_default=db.func.now()
+    )
+
 
 PAGES = {
     "about": {"title":"About NutriWell","eyebrow":"OUR APPROACH","headline":"Nutrition guidance made for real life.","intro":"NutriWell turns evidence-informed nutrition into practical routines you can return to on busy weekdays, shared family meals and every season in between.","hero_image":"boost1.jpg","section_heading":"A more sustainable way to feel well","section_body":"We look beyond one-size-fits-all meal rules. Each conversation begins with your habits, access, culture and goals, then moves toward small changes you can repeat with confidence.","cards":[{"title":"Listen first","body":"Your lifestyle and food preferences lead the plan — not a rigid template.","tag":"01"},{"title":"Use clear science","body":"We translate credible nutrition principles into choices that make sense at your table.","tag":"02"},{"title":"Build steady momentum","body":"Simple check-ins and useful tools help you notice progress without perfectionism.","tag":"03"}]},
@@ -75,16 +119,52 @@ def contact():
         email = request.form.get("email", "").strip()
         interest = request.form.get("interest", "").strip()
         message = request.form.get("message", "").strip()
+## new try 
+try:
 
-        try:
-            msg = Message(
-                subject=f"New Consultation Request: {interest}",
-                sender=os.getenv("MAIL_USERNAME"),
-                recipients=[os.getenv("MAIL_USERNAME")],
-                reply_to=email
-            )
+    # Save consultation to database
+    consultation = Consultation(
+        name=name,
+        email=email,
+        interest=interest,
+        message=message
+    )
 
-            msg.body = f"""
+    db.session.add(consultation)
+    db = SQLAlchemy(app)
+
+
+class Consultation(db.Model):
+    __tablename__ = "consultations"
+
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(100), nullable=False)
+    email = db.Column(db.String(150), nullable=False)
+    interest = db.Column(db.String(200))
+    message = db.Column(db.Text)
+    created_at = db.Column(
+        db.DateTime,
+        server_default=db.func.now()
+    )
+
+
+with app.app_context():
+    db.create_all()
+
+
+# EMAIL
+app.config["MAIL_SERVER"] = "smtp.gmail.com"
+  db.session.commit()
+
+    # Send email
+    msg = Message(
+        subject=f"New Consultation Request: {interest}",
+        sender=os.getenv("MAIL_USERNAME"),
+        recipients=[os.getenv("MAIL_USERNAME")],
+        reply_to=email
+    )
+
+    msg.body = f"""
 New consultation request from your KD Nutrition and Wellness Centre website.
 
 Name: {name}
@@ -97,24 +177,27 @@ Client's message:
 {message}
 """
 
-            mail.send(msg)
+    mail.send(msg)
 
-            flash(
-                f"Thank you, {name}. Your consultation request has been sent successfully. We will be in touch shortly.",
-                "success"
-            )
+    flash(
+        f"Thank you, {name}. Your consultation request has been sent successfully. We will be in touch shortly.",
+        "success"
+    )
 
-        except Exception as e:
-            print("EMAIL ERROR:", e)
+except Exception as e:
 
-            flash(
-                "Sorry, your request could not be sent. Please try again later.",
-                "error"
-            )
+    db.session.rollback()
 
-        return redirect(url_for("contact"))
+    print("ERROR:", e)
 
-    return render_template(
+    flash(
+        "Sorry, your request could not be sent. Please try again later.",
+        "error"
+    )
+
+return redirect(url_for("contact"))
+ 
+return render_template(
         "contact.html",
         page="contact",
         title="Book a Consultation | KD Nutrition And Wellness Centre"
